@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.error{
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}
+
+h1, h2, h3,h4, h5, h6{
+    margin: 0;
+    padding: 0;
+}

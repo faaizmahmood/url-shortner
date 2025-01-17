@@ -1,0 +1,104 @@
+.dashboard {
+
+    .shortenedURL {
+        margin-top: 30px !important;
+        background-color: #008000;
+        padding: 5px 20px;
+        border-radius: 5px;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+    }
+
+    .url_shortner {
+
+        margin-bottom: 30px;
+        width: 100%;
+        display: flex;
+        box-shadow: 0 1px 4px #ccc;
+        border-radius: 6px;
+        padding: 3px;
+
+        input {
+            width: 100%;
+            padding: 10px 20px;
+            outline: none;
+            border: none;
+        }
+
+        button {
+            min-width: 20%;
+            background-color: rgb(51, 0, 255);
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            color: white;
+        }
+    }
+
+    .user_urls {
+
+        .url_item {
+            background-color: rgba(0, 0, 255, 0.196);
+            padding: 20px;
+            border-radius: 10px;
+
+            h6 {
+                color: black;
+                cursor: pointer;
+            }
+
+            a {
+                color: gray;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            h5 {
+                font-size: 12px;
+                text-transform: capitalize;
+            }
+
+            .urlSetting {
+                background-color: rgb(184, 184, 184);
+                width: 100%;
+                padding: 3px 10px;
+                border-radius: 5px;
+            }
+
+            .qrcodeIcon {
+                font-size: 26px;
+            }
+        }
+
+    }
+
+    .search_bar {
+        margin-bottom: 30px;
+        width: 100%;
+        display: flex;
+        box-shadow: 0 1px 4px #ccc;
+        border-radius: 6px;
+        padding: 3px;
+
+        input {
+            width: 100%;
+            padding: 10px 20px;
+            outline: none;
+            border: none;
+        }
+
+        button {
+            min-width: 20%;
+            background-color: #008000;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            color: white;
+        }
+    }
+
+
+}

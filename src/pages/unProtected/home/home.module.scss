@@ -1,0 +1,49 @@
+.home {
+
+    .shortenedURL {
+        margin-top: 30px !important;
+        background-color: rgb(55, 55, 55);
+        padding: 5px 20px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+
+
+
+    .urlbox {
+        max-width: 70%;
+        box-shadow: 0 1px 4px #ccc;
+        margin: 0px auto;
+        padding: 40px 20px;
+        border-radius: 10px;
+
+
+        input {
+            padding: 10px 20px;
+            width: 50%;
+            border: none;
+            outline: none;
+            box-shadow: 0 1px 4px #ccc;
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: rgb(51, 0, 255);
+            border: none;
+            outline: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            margin-top: 10px;
+
+        }
+
+
+
+    }
+
+
+
+}

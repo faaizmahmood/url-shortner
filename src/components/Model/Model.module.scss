@@ -1,0 +1,23 @@
+.model {
+    width: 80%;
+    height: 80vh;
+    background-color: #BEE2E2;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    padding: 30px;
+    border-radius: 16px;
+
+    button{
+        margin-top: 20px;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background-color: rgb(51, 0, 255);
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        color: white;
+    }
+}
