@@ -1,0 +1,52 @@
+.EditURLModel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    min-height: 400px;
+    width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px #ccc;
+
+    .input_group {
+
+        margin-top: 12px;
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px 20px;
+            outline: none;
+            border: none;
+            box-shadow: 0 1px 4px #ccc;
+            border-radius: 6px;
+            margin-top: 7px;
+        }
+
+    }
+
+    .btn_group {
+        display: flex;
+        justify-content: end;
+        gap: 10px;
+        margin-top: 10px;
+
+        button {
+            padding: 10px 20px;
+            background-color: rgb(51, 0, 255);
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            color: white;
+
+            &:nth-child(2) {
+                background-color: transparent !important;
+                border: 1px solid blue;
+                color: blue;
+            }
+        }
+    }
+}

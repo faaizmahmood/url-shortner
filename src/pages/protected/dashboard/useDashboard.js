@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { fetchUserProfile } from '../../../store/slices/userSlice';
 
@@ -20,12 +20,71 @@ const useDashboard = () => {
 
     const [selectedURLData, setSelectedURLData] = useState(null)
 
+    const [openActionMenu, setOpenActionMenu] = useState(false)
+
+    const [openEditURLModel, setOpenEditURLModel] = useState(false)
+
+    const [searchTerm, setSearchTerm] = useState("")
+
+    const [openDeleteModel, setOpenDeleteModel] = useState(false)
+
+    const [openAnalyticsModel, setOpenAnalyticsModel] = useState(false)
+
+    //   profile
+    const { profile } = useSelector((state) => state.user);
+
+    const [filteredURLs, setFilteredURLs] = useState(profile?.user?.urls)
+
+
+    useEffect(() => {
+        if (profile?.user?.urls) {
+            const updatedFilteredURLs = profile.user.urls.filter((ele) =>
+                ele?.clicks?.toString().includes(searchTerm) ||
+                ele?.longURL?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                ele?.shortURL?.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            setFilteredURLs(updatedFilteredURLs);
+        }
+    }, [profile?.user?.urls, searchTerm]);
+
+
+    const handleClose = () => setOpen(false);
+
+    const handelOpenEditURLModel = (urlData) => {
+        handleClose()
+        setOpenEditURLModel(true)
+        setSelectedURLData(urlData)
+
+    }
+
+    const handleCloseEditURLModel = () => setOpenEditURLModel(false);
+
     const handleOpen = (urlData) => {
         setOpen(true)
+        handleCloseEditURLModel()
         setSelectedURLData(urlData)
     };
 
-    const handleClose = () => setOpen(false);
+    const handelCloseDeleteModel = () => setOpenDeleteModel(false)
+
+
+    const handelOpeneDeleteModel = (urlData) => {
+        setSelectedURLData(urlData)
+        setOpenDeleteModel(true)
+        handleClose()
+        handleCloseEditURLModel()
+    }
+
+    const handelCloseAnalyticsModel = () => setOpenAnalyticsModel(false)
+
+
+    const handelOpeneAnalyticsModel = (urlData) => {
+        setSelectedURLData(urlData)
+        setOpenAnalyticsModel(true)
+        handleClose()
+        handleCloseEditURLModel()
+    }
 
     const dispatch = useDispatch();
 
@@ -36,11 +95,8 @@ const useDashboard = () => {
     }, [dispatch]);
 
     const handelLogout = () => {
-
         Object.keys(Cookies.get()).forEach(cookie => Cookies.remove(cookie))
-
         window.location.reload()
-
     }
 
 
@@ -92,23 +148,15 @@ const useDashboard = () => {
                     pending: 'Shortening the URL...', // Pending toast message
                     success: 'URL successfully shortened!', // Success toast message
                 }
-            )
-
-            // const response = await axios.post(
-            //     "http://localhost:5000/api/url/url-shorten",
-            //     { URL: URL },
-            //     {
-            //         headers: {
-            //             Authorization: token ? `Bearer ${token}` : '',
-            //         },
-            //     }
-            // );
+            );
 
             // Log the full response for debugging
             console.log(response.data);
 
             // Check if the response contains the shortened URL
             if (response.data && response.data.shortURL) {
+                // Reset the input value after URL is shortened
+                setURL(""); // Reset the URL input field
                 setShortenedURL(response.data.shortURL);
                 toast.success("URL successfully shortened!");
                 dispatch(fetchUserProfile());
@@ -116,7 +164,7 @@ const useDashboard = () => {
                 toast.error(response.data.message || "Failed to shorten the URL.");
             }
         } catch (err) {
-            console.log(err)
+            console.log(err);
 
             if (err.response && err.response.status === 409) {
                 toast.warning("URL already been shortened.");
@@ -134,6 +182,15 @@ const useDashboard = () => {
         toast.success("Copied the text")
     }
 
+    const toggleDropdown = (index) => {
+        setOpenActionMenu(openActionMenu === index ? null : index)
+    }
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value); // Dynamically update search term
+    };
+
+
     return {
         handelLogout,
         handleSubmit,
@@ -146,7 +203,22 @@ const useDashboard = () => {
         open,
         selectedURLData,
         getdate,
-        formatNumber
+        formatNumber,
+        toggleDropdown,
+        openActionMenu,
+        handelOpenEditURLModel,
+        handleCloseEditURLModel,
+        openEditURLModel,
+        setSearchTerm,
+        profile,
+        filteredURLs,
+        handleSearchChange,
+        handelCloseDeleteModel,
+        handelOpeneDeleteModel,
+        openDeleteModel,
+        openAnalyticsModel,
+        handelOpeneAnalyticsModel,
+        handelCloseAnalyticsModel
     }
 }
 

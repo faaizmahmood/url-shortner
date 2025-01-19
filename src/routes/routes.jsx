@@ -8,9 +8,7 @@ import Signin from '../auth/signin/signin';
 import Cookies from 'js-cookie';
 import URLNavigator from '../pages/unProtected/URLNavigator/URLNavigator';
 
-
 const authToken = Cookies.get('authToken')
-
 
 const isLoggedIn = authToken ? true : false;
 
@@ -51,7 +49,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/u/:shortURL',
-        element: <URLNavigator/>
+        element: <URLNavigator />
     },
     {
         path: "*",

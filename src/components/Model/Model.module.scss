@@ -2,13 +2,43 @@
     width: 80%;
     height: 80vh;
     background-color: #BEE2E2;
-    position: absolute;
+    position: fixed;
     top: 10%;
     left: 10%;
     padding: 30px;
     border-radius: 16px;
+    box-shadow: 0 1px 4px #ccc;
+    z-index: 999;
 
-    button{
+
+    .qrcodeSec {
+
+        display: flex;
+        gap: 20px;
+
+        .qrcode {
+            background-color: white;
+            padding: 10px;
+            width: fit-content;
+        }
+
+        .qrcodeActionbtns {
+
+            button {
+                // margin-top: 20px;
+                padding: 10px 20px;
+                background-color: rgba(51, 0, 255, 0.509);
+                border: none;
+                outline: none;
+                border-radius: 5px;
+                color: white;
+            }
+        }
+
+    }
+
+
+    .closeButton {
         margin-top: 20px;
         position: absolute;
         bottom: 20px;

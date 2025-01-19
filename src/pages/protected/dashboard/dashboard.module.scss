@@ -66,6 +66,44 @@
                 width: 100%;
                 padding: 3px 10px;
                 border-radius: 5px;
+                position: relative;
+                cursor: pointer;
+
+
+                .actionMenu {
+                    position: absolute;
+                    width: 200px;
+                    min-height: 150px;
+                    background-color: rgb(255, 255, 255);
+                    top: 100%;
+                    right: 0%;
+                    border-radius: 5px;
+                    box-shadow: 0 1px 4px #ccc;
+                    z-index: 999;
+                    padding: 10px 10px;
+
+                    ul {
+                        padding: 0;
+                        margin: 0;
+
+                        li {
+                            list-style: none;
+                            padding: 0;
+                            margin: 0;
+                            font-size: 14px;
+                            font-weight: 500;
+                            margin-top: 10px;
+                            padding: 5px 10px;
+                            border-radius: 3px;
+                            transition: all 0.5s;
+
+                            &:hover{
+                                background-color: rgba(0, 0, 255, 0.196);
+                            }
+                        }
+                    }
+                }
+
             }
 
             .qrcodeIcon {

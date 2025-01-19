@@ -1,0 +1,37 @@
+.DeleteModel {
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 200px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px #ccc;
+
+
+    .btn_group {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+
+        button {
+            padding: 10px 20px;
+            background-color: rgb(51, 0, 255);
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            color: white;
+
+            &:nth-child(2) {
+                background-color: transparent !important;
+                border: 1px solid blue;
+                color: blue;
+            }
+        }
+    }
+
+}

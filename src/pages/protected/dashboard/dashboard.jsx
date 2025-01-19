@@ -5,6 +5,10 @@ import useDashboard from './useDashboard';
 import MetaTags from '../../../components/MetaTags';
 import { useSelector, useDispatch } from 'react-redux';
 import Model from '../../../components/Model/Model';
+import EditURLModel from '../../../components/editURLModel/editURLModel';
+import DeleteModel from '../../../components/deleteModel/deleteModel';
+import Analytics from '../../../components/analytics/analytics';
+
 
 const Dashboard = () => {
 
@@ -18,10 +22,24 @@ const Dashboard = () => {
         selectedURLData,
         open,
         getdate,
-        formatNumber } = useDashboard();
+        formatNumber,
+        toggleDropdown,
+        openActionMenu,
+        openEditURLModel,
+        handelOpenEditURLModel,
+        handleCloseEditURLModel,
+        handleSearchChange,
+        profile,
+        filteredURLs,
+        openDeleteModel,
+        handelOpeneDeleteModel,
+        handelCloseDeleteModel,
+        openAnalyticsModel,
+        handelOpeneAnalyticsModel,
+        handelCloseAnalyticsModel
+    } = useDashboard();
 
-    // Accessing profile from Redux store
-    const { profile } = useSelector((state) => state.user);
+    // Accessing profile from Redux stor
 
 
     return (
@@ -51,14 +69,14 @@ const Dashboard = () => {
                                     </button>
                                 </div>
 
-                                {shortenedURL && (
+                                {/* {shortenedURL && (
                                     <span
                                         className={`${styles.shortenedURL}`}
                                         onClick={() => copyText(shortenedURL)}
                                     >
                                         http://localhost:5173/u/{shortenedURL} <i className="fa-regular fa-copy ms-2"></i>
                                     </span>
-                                )}
+                                )} */}
                             </form>
 
                             <hr />
@@ -66,10 +84,10 @@ const Dashboard = () => {
                             <div className={`${styles.user_urls}`}>
 
                                 {
-                                    profile?.user?.urls ? (
+                                    filteredURLs ? (
                                         <>
                                             {
-                                                profile?.user?.urls?.map((ele, ind) => {
+                                                filteredURLs?.map((ele, ind) => {
                                                     return (
                                                         <>
                                                             <div key={ind} className={`${styles.url_item} mt-3`} >
@@ -92,8 +110,23 @@ const Dashboard = () => {
                                                                             <h5 className='mt-1'>{getdate(ele?.createdAt)}</h5>
                                                                         </div>
                                                                         <div>
-                                                                            <div className={`${styles.urlSetting}`}>
+                                                                            <div className={`${styles.urlSetting}`} onClick={() => toggleDropdown(ind)}>
+
                                                                                 <i className="fa-duotone fa-solid fa-gear"></i>
+                                                                                {
+                                                                                    openActionMenu === ind && (
+                                                                                        <div className={`${styles.actionMenu}`}>
+                                                                                            <ul>
+                                                                                                <li onClick={() => copyText(`${ele?.shortURL}`)}> <i className="fa-regular fa-copy me-2"></i>Copy URL</li>
+                                                                                                <li onClick={() => handelOpenEditURLModel(ele)}> <i className="fa-regular fa-pen-to-square me-2"></i>Edit URL</li>
+                                                                                                <li onClick={() => handleOpen(ele)}> <i className="fa-regular fa-qrcode me-2"></i>View QRCode</li>
+                                                                                                <li onClick={() => handelOpeneDeleteModel(ele)}><i className="fa-regular fa-trash me-2"></i> Delete URL</li>
+                                                                                                <li onClick={() => handelOpeneAnalyticsModel(ele)}><i className="fa-regular fa-chart-simple me-2"></i> View Analytics</li>
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    )
+                                                                                }
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -117,9 +150,10 @@ const Dashboard = () => {
                             <div className={`${styles.search_bar}`}>
                                 <input
                                     type="text"
-                                    placeholder="Search Link"
-                                    onChange={(e) => setURL(e.target.value)}
+                                    placeholder="Search URLs..."
+                                    onChange={handleSearchChange} // Dynamically update search term
                                 />
+
                                 <button type="submit">
                                     <i className="fa-solid fa-magnifying-glass"></i>
                                 </button>
@@ -132,6 +166,17 @@ const Dashboard = () => {
 
             {/* Model */}
             {open && <Model data={selectedURLData} onClose={handleClose} />}
+
+            {/* Edit URL Model */}
+            {openEditURLModel && <EditURLModel data={selectedURLData} onClose={handleCloseEditURLModel} />}
+
+            {/* Delete Model */}
+            {openDeleteModel && <DeleteModel data={selectedURLData} onClose={handelCloseDeleteModel} />}
+
+            {/* Analytics */}
+            {openAnalyticsModel && <Analytics data={selectedURLData} onClose={handelCloseAnalyticsModel} />}
+
+
         </>
     );
 };
