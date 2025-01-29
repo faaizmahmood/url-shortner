@@ -3,6 +3,7 @@
 import React from 'react'
 import styles from './Error.module.scss'
 import { NavLink } from 'react-router-dom'
+import errorImg from '../../../public/images/Oppsimg.png'
 
 const Error = ({ call, title, description }) => {
 
@@ -13,7 +14,7 @@ const Error = ({ call, title, description }) => {
     return (
         <>
             <section className={`${styles.error}`}>
-                <img src='../../../public/images/Oppsimg.png' />
+                <img src={errorImg} />
                 <h4>{title}</h4>
                 <p>{description}</p>
 
