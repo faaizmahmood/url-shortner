@@ -8,6 +8,7 @@ import Model from '../../../components/Model/Model';
 import EditURLModel from '../../../components/editURLModel/editURLModel';
 import DeleteModel from '../../../components/deleteModel/deleteModel';
 import Analytics from '../../../components/analytics/analytics';
+import noImg from '../../../../public/images/emptyBox.png'
 
 
 const Dashboard = () => {
@@ -143,7 +144,7 @@ const Dashboard = () => {
                                         <>
                                             <div className='text-center'>
                                             <h4 className='mt-5'>No URL is Shortend Yet!</h4>
-                                                <img src='../../../../public/images/emptyBox.png' />
+                                                <img src={noImg} />
                                             </div>
                                         </>
                                     )
