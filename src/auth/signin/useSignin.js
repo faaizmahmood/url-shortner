@@ -62,6 +62,8 @@ const useSignin = () => {
 
                 formik.resetForm()
 
+                navigate('/')
+
                 window.location.reload()
 
             } catch (error) {

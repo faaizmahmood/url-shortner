@@ -1,10 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { toast } from "react-toastify";
 import Cookies from "js-cookie"
 import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 const handleGoogleLoginSuccess = async (credentialResponse) => {
 
     console.log(credentialResponse.credential)
+
+       const navigate = useNavigate()
 
     try {
         // Send OAuth token to backend for verification and user creation
@@ -20,6 +24,8 @@ const handleGoogleLoginSuccess = async (credentialResponse) => {
 
         
         toast.success("Google sign-in successful! 🎉");
+
+        navigate('/')
 
         // Navigate to the homepage or dashboard after successful login
          window.location.reload()
