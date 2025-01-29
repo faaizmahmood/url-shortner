@@ -1,11 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import styles from './analytics.module.scss'
+import { Line } from 'react-chartjs-2';  // Importing Line chart from react-chartjs-2
+import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';  // Import PointElement for Line chart
+import styles from './analytics.module.scss';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    LineElement,
+    PointElement,  // Register PointElement
+    Title,
+    Tooltip,
+    Legend
+);
 
 const Analytics = ({ data, onClose }) => {
     const [chartData, setChartData] = useState(null);
@@ -15,28 +23,27 @@ const Analytics = ({ data, onClose }) => {
         if (data && data.analytics) {
             const analytics = data.analytics;
 
-            // Aggregate clicks for deviceType, browser, and OS
-            const aggregateCounts = (key) => {
+            // Function to convert Unix timestamp to 'MMM-DD' format (e.g., Jan-15)
+            const convertTimestampToDate = (timestamp) => {
+                const date = new Date(timestamp);
+                const options = { month: 'short', day: 'numeric' }; // Month as abbreviated (e.g., Jan, Feb) and day
+                return date.toLocaleDateString('en-US', options); // Returns date in 'MMM-DD' format
+            };
+
+            // Aggregate clicks by date (converted from timestamp)
+            const aggregateCountsByDate = () => {
                 return analytics.reduce((acc, item) => {
-                    acc[item[key]] = (acc[item[key]] || 0) + 1;
+                    const date = convertTimestampToDate(item.timestamp); // Assuming 'timestamp' contains the Unix timestamp
+                    acc[date] = (acc[date] || 0) + 1;
                     return acc;
                 }, {});
             };
 
-            const deviceCounts = aggregateCounts("deviceType");
-            const browserCounts = aggregateCounts("browser");
-            const osCounts = aggregateCounts("os");
+            const dateCounts = aggregateCountsByDate();
 
-            const labels = [
-                ...Object.keys(deviceCounts),
-                ...Object.keys(browserCounts),
-                ...Object.keys(osCounts),
-            ];
-            const counts = [
-                ...Object.values(deviceCounts),
-                ...Object.values(browserCounts),
-                ...Object.values(osCounts),
-            ];
+            // Extract the dates and their respective counts
+            const labels = Object.keys(dateCounts);
+            const counts = Object.values(dateCounts).map(count => count / 2);
 
             setChartData({
                 labels,
@@ -44,15 +51,24 @@ const Analytics = ({ data, onClose }) => {
                     {
                         label: "Number of Clicks",
                         data: counts,
-                        backgroundColor: "rgba(75, 192, 192, 0.6)",
-                        borderColor: "rgba(75, 192, 192, 1)",
-                        borderWidth: 1,
+                        backgroundColor: "rgba(75, 192, 192, 0.6)", // This is for line's fill color
+                        borderColor: "rgba(75, 192, 192, 1)", // Line color
+                        borderWidth: 2,
+                        tension: 0.4, // Smooth the line (optional)
+                        fill: true,  // Fill the area under the line (optional)
                     },
                 ],
             });
         } else {
             setIsDataValid(false);
         }
+
+        // Cleanup function to destroy the chart before unmounting
+        return () => {
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+        };
     }, [data]);
 
     const chartOptions = {
@@ -60,7 +76,7 @@ const Analytics = ({ data, onClose }) => {
         plugins: {
             title: {
                 display: true,
-                text: "Analytics: Data and Clicks",
+                text: "Clicks per Date",
             },
         },
         scales: {
@@ -76,7 +92,7 @@ const Analytics = ({ data, onClose }) => {
 
             {isDataValid && chartData ? (
                 <div className={`${styles.chart}`}>
-                    <Bar data={chartData} options={chartOptions} />
+                    <Line data={chartData} options={chartOptions} />  {/* Switch Bar to Line */}
                 </div>
             ) : (
                 <p>Data is insufficient or unavailable. Please try again later.</p>

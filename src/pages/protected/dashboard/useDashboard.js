@@ -136,7 +136,7 @@ const useDashboard = () => {
 
             const response = await toast.promise(
                 axios.post(
-                    "http://localhost:5000/api/url/url-shorten",
+                    "https://url-shortner-server-f091f5331ce0.herokuapp.com/api/url/url-shorten",
                     { URL: URL },
                     {
                         headers: {

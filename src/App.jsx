@@ -1,10 +1,10 @@
-import { RouterProvider } from "react-router-dom"
-import router from "./routes/routes"
 import { ToastContainer } from "react-toastify"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import Cookies from "js-cookie"
 import { fetchUserProfile } from "./store/slices/userSlice"
+// import AppRoutes from "./routes/routes"
+import Layout from './layout/layout'
 
 
 const App = () => {
@@ -22,7 +22,8 @@ const App = () => {
 
     return (
         <>
-            <RouterProvider router={router} />
+
+            <Layout />
 
             <ToastContainer
                 position="bottom-center"

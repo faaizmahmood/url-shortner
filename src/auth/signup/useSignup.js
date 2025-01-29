@@ -26,7 +26,7 @@ const useSignup = () => {
         validationSchema,
         onSubmit: async (values) => {
 
-            const signupPromise = axios.post('http://localhost:5000/api/auth/signup', values)
+            const signupPromise = axios.post('https://url-shortner-server-f091f5331ce0.herokuapp.com/api/auth/signup', values)
 
             // Show success toast if signup succeeds
             toast.promise(signupPromise, {

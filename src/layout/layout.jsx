@@ -1,48 +1,35 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
-import { Outlet, useNavigation } from "react-router-dom"
+import { matchPath, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import Header from "../pages/protected/header/header";
 import Footer from "../pages/protected/footer/footer";
+import AppRoutes from "../routes/routes";
 
 const Layout = () => {
+    const location = useLocation(); // Get the current route
+    const authToken = Cookies.get("authToken");
+    const isLoggedIn = authToken ? true : false;
 
-    const authToken = Cookies.get('authToken')
+    // Define routes where the header and footer should not be shown
+    const routesWithoutHeaderFooter = ["/u/:shortURL", "/auth/signin", "/auth/signup"];
 
-    const isLoggedIn = authToken ? true : false
-
-    const navigation = useNavigation()
-
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        setIsLoading(navigation.state === "loading");
-    }, [navigation.state]);
-
-    if (isLoading) {
-        return (
-            <>
-                <h1>Loading...</h1>
-            </>
-        );
-    }
-
+    // Check if the current path matches any of the excluded routes
+    const shouldShowHeaderFooter = !routesWithoutHeaderFooter.some((route) =>
+        matchPath(route, location.pathname)
+    );
 
     return (
         <>
             {/* Header */}
-            {isLoggedIn ? <Header /> : ""}
+            {shouldShowHeaderFooter && isLoggedIn && <Header />}
 
             {/* Routes */}
-
-            <Outlet />
-
-            {/* Routes */}
+            <AppRoutes />
 
             {/* Footer */}
-            {isLoggedIn ? <Footer /> : ""}
+            {shouldShowHeaderFooter && isLoggedIn && <Footer />}
         </>
-    )
-}
+    );
+};
 
-export default Layout
+export default Layout;

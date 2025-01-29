@@ -84,7 +84,7 @@ const Dashboard = () => {
                             <div className={`${styles.user_urls}`}>
 
                                 {
-                                    filteredURLs ? (
+                                    filteredURLs && filteredURLs.length > 0 ? (
                                         <>
                                             {
                                                 filteredURLs?.map((ele, ind) => {
@@ -139,7 +139,14 @@ const Dashboard = () => {
                                                 })
                                             }
                                         </>
-                                    ) : ""
+                                    ) : (
+                                        <>
+                                            <div className='text-center'>
+                                            <h4 className='mt-5'>No URL is Shortend Yet!</h4>
+                                                <img src='../../../../public/images/emptyBox.png' />
+                                            </div>
+                                        </>
+                                    )
                                 }
 
                             </div>

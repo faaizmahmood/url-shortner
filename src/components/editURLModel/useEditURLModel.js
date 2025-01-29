@@ -49,7 +49,7 @@ const useEditURLModel = (initialData) => {
 
             try {
                 const response = await axios.put(
-                    'http://localhost:5000/api/url/url-update',
+                    'https://url-shortner-server-f091f5331ce0.herokuapp.com/api/url/url-update',
                     payload,
                     {
                         headers: {

@@ -8,7 +8,7 @@ const handleGoogleLoginSuccess = async (credentialResponse) => {
 
     try {
         // Send OAuth token to backend for verification and user creation
-        const response = await axios.post('http://localhost:5000/api/auth/oauth/google', {
+        const response = await axios.post('https://url-shortner-server-f091f5331ce0.herokuapp.com/api/auth/oauth/google', {
             credential: credentialResponse.credential,
         });
 

@@ -2,7 +2,7 @@
 import React from 'react'
 import styles from './home.module.scss'
 import useHome from './useHome'
-import { useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 const Home = () => {
 
@@ -38,7 +38,7 @@ const Home = () => {
                             ) : ""
                         }
 
-                        
+
 
                         <div>
                             <button type='submit' className='mt-4'>
@@ -53,6 +53,11 @@ const Home = () => {
                 <p className='w-75 mx-auto mt-4'>
                     ShortURL is a free tool to shorten URLs and generate short links URL shortener allows to create a shortened link making it easy to share
                 </p>
+
+                <div className='d-flex gap-2 justify-content-center'>
+                    <NavLink to='/auth/signin'><button>SignIn</button></NavLink>
+                    <NavLink to='/auth/signup'><button>SignUp</button></NavLink>
+                </div>
 
             </div>
 

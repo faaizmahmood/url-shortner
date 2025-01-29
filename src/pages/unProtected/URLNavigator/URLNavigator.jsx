@@ -52,7 +52,7 @@ const URLNavigator = () => {
                     location
                 };
 
-                const response = await axios.put(`http://localhost:5000/api/url/url-redirect/${shortURL}`, payload);
+                const response = await axios.put(`https://url-shortner-server-f091f5331ce0.herokuapp.com/api/url/url-redirect/${shortURL}`, payload);
 
                 // Check if longURL exists in the response
                 if (response.data && response.data.longURL) {

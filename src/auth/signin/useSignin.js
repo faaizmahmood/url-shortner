@@ -30,7 +30,7 @@ const useSignin = () => {
         validationSchema,
         onSubmit: async (values) => {
 
-            const signupPromise = axios.post('http://localhost:5000/api/auth/signin', values)
+            const signupPromise = axios.post('https://url-shortner-server-f091f5331ce0.herokuapp.com/api/auth/signin', values)
 
             // Show success toast if signup succeeds
             toast.promise(signupPromise, {
@@ -46,7 +46,7 @@ const useSignin = () => {
                             return 'Password is incorrect.';
                         }
 
-                        return 'An unexpected error occurred. Please try again.';
+                        return 'An unexpected error occurred.';
                     }
                 }
             })
@@ -62,14 +62,14 @@ const useSignin = () => {
 
                 formik.resetForm()
 
-                navigate('/')
+                window.location.reload()
 
             } catch (error) {
                 // Display error toast based on the error type
                 if (error.response?.status === 400) {
                     toast.error("Email already in use")
                 } else {
-                    toast.error("An unexpected error occurred. Please try again.")
+                    toast.error("An unexpected error occurred.")
                 }
             }
         },
